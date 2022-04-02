@@ -106,7 +106,7 @@ class PauseSubState extends MusicBeatSubstate
 		camcontrol.bgColor.alpha = 0;
 		_virtualpad.cameras = [camcontrol];
 		
-		#endas = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
 	override function update(elapsed:Float)
