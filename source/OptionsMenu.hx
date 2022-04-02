@@ -69,7 +69,6 @@ class OptionsMenu extends MusicBeatState
 		
 		new OptionCategory("Mobile settings", [
 			new CustomControls("edit a control"),
-			new About("about android port")
 		]),
 		
 		new OptionCategory("Saves and Data", [
