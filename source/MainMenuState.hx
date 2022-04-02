@@ -88,7 +88,7 @@ class MainMenuState extends MusicBeatState
 		starBG.scrollFactor.set();
 		add(starBG);
 
-		redImpostor = new FlxSprite(704.55, 106.65);
+		var redImpostor:FlxSprite = new FlxSprite(704.55, 106.65);
 		redImpostor.frames = Paths.getSparrowAtlas('menuBooba/impostorMenu', 'impostor');
 		redImpostor.animation.addByPrefix('idle', 'red smile', 24, true);
 		redImpostor.animation.play('idle');
@@ -98,7 +98,7 @@ class MainMenuState extends MusicBeatState
 		redImpostor.scrollFactor.set();
 		add(redImpostor);
 
-		greenImpostor = new FlxSprite(-159.35, 102.35);
+		var greenImpostor:FlxSprite = new FlxSprite(-159.35, 102.35);
 		greenImpostor.frames = Paths.getSparrowAtlas('menuBooba/impostorMenu', 'impostor');
 		greenImpostor.animation.addByPrefix('idle', 'green smile', 24, true);
 		greenImpostor.animation.play('idle');
@@ -108,7 +108,7 @@ class MainMenuState extends MusicBeatState
 		greenImpostor.scrollFactor.set();
 		add(greenImpostor);
 
-		vignette = new FlxSprite(0, 0).loadGraphic(Paths.image('menuBooba/vignette', 'impostor'));
+		var vignette:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('menuBooba/vignette', 'impostor'));
 		vignette.antialiasing = true;
 		vignette.updateHitbox();
 		vignette.active = false;
