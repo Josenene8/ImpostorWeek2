@@ -335,6 +335,10 @@ class StoryMenuState extends MusicBeatState
 		trace("Line 165");
 
 		changeWeek();
+		
+                #if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
 
 		super.create();
 	}
