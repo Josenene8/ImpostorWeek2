@@ -1,5 +1,7 @@
 package;
 
+import flixel.math.FlxRandom;
+import Song.Event;
 import flixel.input.keyboard.FlxKey;
 import haxe.Exception;
 import openfl.geom.Matrix;
@@ -164,13 +166,37 @@ class PlayState extends MusicBeatState
 	var trainSound:FlxSound;
 
 	var limo:FlxSprite;
+	var ass2:FlxSprite;
+	var stageFront2:FlxSprite;
+	var stageFront3:FlxSprite;
+	var stageFront2Dark:FlxSprite;
+	var stageFront3Dark:FlxSprite;
+	var bgDark:FlxSprite;
+	var machineDark:FlxSprite;
+	var miraGradient:FlxSprite;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:FlxSprite;
 	var songName:FlxText;
 	var upperBoppers:FlxSprite;
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
+	
+        var amogus:FlxSprite;
+	var dripster:FlxSprite;
+	var yellow:FlxSprite;
+	var brown:FlxSprite;
 
+	var bfStartpos:FlxPoint;
+	var dadStartpos:FlxPoint;
+	var gfStartpos:FlxPoint;
+
+	var cloudScroll:FlxTypedGroup<FlxSprite>;
+	var farClouds:FlxTypedGroup<FlxSprite>;
+	
+	var orb:FlxSprite = new FlxSprite();
+
+	var crowd:FlxSprite = new FlxSprite();
+	
 	var fc:Bool = true;
 
 	var bgGirls:BackgroundGirls;
@@ -217,6 +243,22 @@ class PlayState extends MusicBeatState
 
 
 	// API stuff
+
+	public function addObject(object:FlxBasic)
+	{
+		add(object);
+	}
+
+	public function removeObject(object:FlxBasic)
+	{
+		remove(object);
+	}
+
+	// sussy variable
+	var _cb = 0;
+
+	var flashSprite:FlxSprite = new FlxSprite(0, 0).makeGraphic(1280, 720, 0xFFb30000);
+	var lightsOutSprite:FlxSprite = new FlxSprite(-700, -70).makeGraphic(10000, 10000, 0xFF000000);
 	
 	public function addObject(object:FlxBasic) { add(object); }
 	public function removeObject(object:FlxBasic) { remove(object); }
@@ -344,6 +386,18 @@ class PlayState extends MusicBeatState
 				];
 			case 'senpai':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('senpai/senpaiDialogue'));
+			case 'sussus-moogus':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/sussus-moogus/moogus' + nnSuffix));
+			case 'sabotage':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/sabotage/sabotage' + nnSuffix));
+			case 'meltdown':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/meltdown/meltdown' + nnSuffix));
+			case 'sussus-toogus':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/sussus-toogus/toogus' + nnSuffix));
+			case 'lights-down':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/lights-down/down' + nnSuffix));
+			case 'reactor':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('data/reactor/reactor'));
 			case 'roses':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
@@ -700,6 +754,355 @@ class PlayState extends MusicBeatState
 						stageCurtains.active = false;
 	
 						add(stageCurtains);
+			}
+					case 'toogus':
+						{
+								defaultCamZoom = 0.85;
+								curStage = 'toogus';
+								var bg:FlxSprite = new FlxSprite(0,50).loadGraphic(Paths.image('Mira'));
+								bg.setGraphicSize(Std.int(bg.width * 1.4));
+								bg.antialiasing = true;
+								bg.scrollFactor.set(1, 1);
+								bg.active = false;
+								add(bg);
+
+								bgDark = new FlxSprite(0,50).loadGraphic(Paths.image('MiraDark'));
+								bgDark.setGraphicSize(Std.int(bgDark.width * 1.4));
+								bgDark.antialiasing = true;
+								bgDark.scrollFactor.set(1, 1);
+								bgDark.active = false;
+								bgDark.alpha = 0;
+								add(bgDark);
+
+								var stageFront:FlxSprite = new FlxSprite(1000, 150).loadGraphic(Paths.image('vending_machine'));
+								stageFront.updateHitbox();
+								stageFront.antialiasing = true;
+								stageFront.scrollFactor.set(1, 1);
+								stageFront.active = false;
+								add(stageFront);
+
+								machineDark = new FlxSprite(1000, 150).loadGraphic(Paths.image('vending_machineDark'));
+								machineDark.updateHitbox();
+								machineDark.antialiasing = true;
+								machineDark.scrollFactor.set(1, 1);
+								machineDark.active = false;
+								machineDark.alpha = 0;
+								add(machineDark);
+								
+								var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
+								stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+								stageCurtains.updateHitbox();
+								stageCurtains.antialiasing = true;
+								stageCurtains.scrollFactor.set(1.3, 1.3);
+								stageCurtains.active = false;
+
+								lightsOutSprite.alpha = 0;
+								flashSprite.scrollFactor.set(0, 0);
+								add(lightsOutSprite); // lights out stuff
+			
+							//	add(stageCurtains);
+						}
+					case 'reactor':
+						{
+								defaultCamZoom = 0.5;
+								curStage = 'reactor';
+								var bg:FlxSprite = new FlxSprite(-2300,-1700).loadGraphic(Paths.image('reactor/reactor background', 'impostor'));
+								bg.setGraphicSize(Std.int(bg.width * 0.7));
+								bg.antialiasing = true;
+								bg.scrollFactor.set(1, 1);
+								bg.active = false;
+								add(bg);
+
+								yellow = new FlxSprite(-400, 150);
+								yellow.frames = Paths.getSparrowAtlas('reactor/susBoppers', 'impostor');
+								yellow.animation.addByPrefix('bop', 'yellow sus', 24, false);
+								yellow.animation.play('bop');
+								yellow.setGraphicSize(Std.int(yellow.width * 0.7));
+								yellow.antialiasing = true;
+								yellow.scrollFactor.set(1, 1);
+								yellow.active = true;
+								add(yellow);
+
+								var pillar1:FlxSprite = new FlxSprite(-2300,-1700).loadGraphic(Paths.image('reactor/back pillars', 'impostor'));
+								pillar1.setGraphicSize(Std.int(pillar1.width * 0.7));
+								pillar1.antialiasing = true;
+								pillar1.scrollFactor.set(1, 1);
+								pillar1.active = false;
+								add(pillar1);
+
+								dripster = new FlxSprite(1375, 150);
+								dripster.frames = Paths.getSparrowAtlas('reactor/susBoppers', 'impostor');
+								dripster.animation.addByPrefix('bop', 'blue sus', 24, false);
+								dripster.animation.play('bop');
+								dripster.setGraphicSize(Std.int(dripster.width * 0.7));
+								dripster.antialiasing = true;
+								dripster.scrollFactor.set(1, 1);
+								dripster.active = true;
+								add(dripster);
+
+								var pillar2:FlxSprite = new FlxSprite(-2300,-1700).loadGraphic(Paths.image('reactor/middle pillars', 'impostor'));
+								pillar2.setGraphicSize(Std.int(pillar2.width * 0.7));
+								pillar2.antialiasing = true;
+								pillar2.scrollFactor.set(1, 1);
+								pillar2.active = false;
+								add(pillar2);
+
+								amogus = new FlxSprite(1670, 250);
+								amogus.frames = Paths.getSparrowAtlas('reactor/susBoppers', 'impostor');
+								amogus.animation.addByPrefix('bop', 'white sus', 24, false);
+								amogus.animation.play('bop');
+								amogus.setGraphicSize(Std.int(amogus.width * 0.7));
+								amogus.antialiasing = true;
+								amogus.scrollFactor.set(1, 1);
+								amogus.active = true;
+								add(amogus);
+
+								brown = new FlxSprite(-850, 190);
+								brown.frames = Paths.getSparrowAtlas('reactor/susBoppers', 'impostor');
+								brown.animation.addByPrefix('bop', 'brown sus', 24, false);
+								brown.animation.play('bop');
+								brown.setGraphicSize(Std.int(brown.width * 0.7));
+								brown.antialiasing = true;
+								brown.scrollFactor.set(1, 1);
+								brown.active = true;
+								add(brown);
+
+								var pillar3:FlxSprite = new FlxSprite(-2300,-1700).loadGraphic(Paths.image('reactor/front pillars', 'impostor'));
+								pillar3.setGraphicSize(Std.int(pillar3.width * 0.7));
+								pillar3.antialiasing = true;
+								pillar3.scrollFactor.set(1, 1);
+								pillar3.active = false;
+								add(pillar3);
+
+								orb = new FlxSprite(-460,-1300).loadGraphic(Paths.image('reactor/ball of big ol energy', 'impostor'));
+								orb.setGraphicSize(Std.int(orb.width * 0.7));
+								orb.antialiasing = true;
+								orb.scrollFactor.set(1, 1);
+								orb.active = false;
+								add(orb);
+
+								var cranes:FlxSprite = new FlxSprite(-735, -1500).loadGraphic(Paths.image('reactor/upper cranes', 'impostor'));
+								cranes.setGraphicSize(Std.int(cranes.width * 0.7));
+								cranes.antialiasing = true;
+								cranes.scrollFactor.set(1, 1);
+								cranes.active = false;
+								add(cranes);
+
+								var console1:FlxSprite = new FlxSprite(-260,150).loadGraphic(Paths.image('reactor/center console', 'impostor'));
+								console1.setGraphicSize(Std.int(console1.width * 0.7));
+								console1.antialiasing = true;
+								console1.scrollFactor.set(1, 1);
+								console1.active = false;
+								add(console1);
+
+								
+								var console2:FlxSprite = new FlxSprite(-1380,450).loadGraphic(Paths.image('reactor/side console', 'impostor'));
+								console2.setGraphicSize(Std.int(console2.width * 0.7));
+								console2.antialiasing = true;
+								console2.scrollFactor.set(1, 1);
+								console2.active = false;
+								add(console2);						
+								
+
+			
+							//	add(stageCurtains);
+						}
+					case 'polus': {
+						curStage = 'polus';
+						defaultCamZoom = 0.9;  
+ 
+						var sky:FlxSprite = new FlxSprite(-834.3, -620.5).loadGraphic(Paths.image('polus/polusSky', 'impostor'));
+						sky.antialiasing = true;
+						sky.scrollFactor.set(0.5, 0.5);
+						sky.active = false;
+						add(sky);		
+		
+						var rocks:FlxSprite = new FlxSprite(-915.8, -411.3).loadGraphic(Paths.image('polus/polusrocks', 'impostor'));
+						rocks.updateHitbox();
+						rocks.antialiasing = true;
+						rocks.scrollFactor.set(0.6, 0.6);
+						rocks.active = false;
+						add(rocks);	
+						
+						var hills:FlxSprite = new FlxSprite(-1238.05, -180.55).loadGraphic(Paths.image('polus/polusHills', 'impostor'));
+						hills.updateHitbox();
+						hills.antialiasing = true;
+						hills.scrollFactor.set(0.9, 0.9);
+						hills.active = false;
+						add(hills);
+
+						var warehouse:FlxSprite = new FlxSprite(-458.35, -315.6).loadGraphic(Paths.image('polus/polusWarehouse', 'impostor'));
+						warehouse.updateHitbox();
+						warehouse.antialiasing = true;
+						warehouse.scrollFactor.set(0.9, 0.9);
+						warehouse.active = false;
+						add(warehouse);
+
+						var crowd:FlxSprite = new FlxSprite(-280.5, 240.8);
+						crowd.frames = Paths.getSparrowAtlas('polus/CrowdBop', 'impostor');
+						crowd.animation.addByPrefix('CrowdBop', 'CrowdBop', 24);
+						crowd.animation.play('CrowdBop');
+						crowd.scrollFactor.set(1, 1);
+						crowd.antialiasing = true;
+						crowd.updateHitbox();
+						crowd.scale.set(1.5, 1.5);
+						if(SONG.song.toLowerCase() == 'meltdown') {
+							add(crowd);
+						}
+
+						
+						var ground:FlxSprite = new FlxSprite(-580.9, 241.85).loadGraphic(Paths.image('polus/polusGround', 'impostor'));
+						ground.updateHitbox();
+						ground.antialiasing = true;
+						ground.scrollFactor.set(1, 1);
+						ground.active = false;
+						add(ground);
+
+						deadBF = new FlxSprite(532.95, 465.95).loadGraphic(Paths.image('polus/bfdead', 'impostor'));
+						deadBF.antialiasing = true;
+						deadBF.scrollFactor.set(1, 1);
+						deadBF.updateHitbox();						
+
+					}
+					case 'ejected':
+					{
+						defaultCamZoom = 0.45;
+						curStage = 'ejected';
+						cloudScroll = new FlxTypedGroup<FlxSprite>();
+						farClouds = new FlxTypedGroup<FlxSprite>();
+						var sky:FlxSprite = new FlxSprite(-2372.25, -4181.7).loadGraphic(Paths.image('ejected/sky', 'impostor'));
+						sky.antialiasing = true;
+						sky.updateHitbox();
+						sky.scrollFactor.set(0, 0);			
+						add(sky);
+
+						fgCloud = new FlxSprite(-2660.4, -402).loadGraphic(Paths.image('ejected/fgClouds', 'impostor'));
+						fgCloud.antialiasing = true;
+						fgCloud.updateHitbox();
+						fgCloud.scrollFactor.set(0.2, 0.2);
+						add(fgCloud);
+
+						for(i in 0...farClouds.members.length) {
+							add(farClouds.members[i]);
+						}
+						add(farClouds);
+
+						rightBuildings = [];
+						leftBuildings = [];
+						middleBuildings = [];
+						for(i in 0...2) {
+							var rightBuilding = new FlxSprite(1022.3, -390.45);
+							rightBuilding.frames = Paths.getSparrowAtlas('ejected/buildingSheet', 'impostor');
+							rightBuilding.animation.addByPrefix('1', 'BuildingB1', 24, false);
+							rightBuilding.animation.addByPrefix('2', 'BuildingB2', 24, false);
+							rightBuilding.animation.play('1');
+							rightBuilding.antialiasing = true;
+							rightBuilding.updateHitbox();
+							rightBuilding.scrollFactor.set(0.5, 0.5);
+							add(rightBuilding);
+							rightBuildings.push(rightBuilding);
+						}
+						
+						for(i in 0...2) {
+							var middleBuilding = new FlxSprite(-76.15, 1398.5);
+							middleBuilding.frames = Paths.getSparrowAtlas('ejected/buildingSheet', 'impostor');
+							middleBuilding.animation.addByPrefix('1', 'BuildingA1', 24, false);
+							middleBuilding.animation.addByPrefix('2', 'BuildingA2', 24, false);
+							middleBuilding.animation.play('1');
+							middleBuilding.antialiasing = true;
+							middleBuilding.updateHitbox();
+							middleBuilding.scrollFactor.set(0.5, 0.5);
+							add(middleBuilding);
+							middleBuildings.push(middleBuilding);
+						}
+						
+						for(i in 0...2) {
+							var leftBuilding = new FlxSprite(-1099.3, 7286.55);
+							leftBuilding.frames = Paths.getSparrowAtlas('ejected/buildingSheet', 'impostor');
+							leftBuilding.animation.addByPrefix('1', 'BuildingB1', 24, false);
+							leftBuilding.animation.addByPrefix('2', 'BuildingB2', 24, false);
+							leftBuilding.animation.play('1');
+							leftBuilding.antialiasing = true;
+							leftBuilding.updateHitbox();
+							leftBuilding.scrollFactor.set(0.5, 0.5);
+							add(leftBuilding);
+							leftBuildings.push(leftBuilding);
+						}
+
+						rightBuildings[0].y = 6803.1;
+						middleBuildings[0].y = 8570.5;
+						leftBuildings[0].y = 14050.2;
+
+						for(i in 0...3) {
+							//now i could add the clouds manually
+							//but i wont!!! trolled
+							var newCloud:FlxSprite = new FlxSprite();
+							newCloud.frames = Paths.getSparrowAtlas('ejected/scrollingClouds', 'impostor');
+							newCloud.animation.addByPrefix('idle', 'Cloud' + i, 24, false);
+							newCloud.animation.play('idle');
+							newCloud.updateHitbox();
+							newCloud.alpha = 1;
+							
+							switch(i) {
+								case 0:
+									newCloud.setPosition(-9.65, -224.35);
+									newCloud.scrollFactor.set(0.8, 0.8);
+								case 1:
+									newCloud.setPosition(-1342.85, -350.45);
+									newCloud.scrollFactor.set(0.6, 0.6);
+								case 2:
+									newCloud.setPosition(1784.65, -957.05);
+									newCloud.scrollFactor.set(1.3, 1.3);
+								case 3:
+									newCloud.setPosition(-2217.45, -1377.65);
+									newCloud.scrollFactor.set(1, 1);
+							}
+							cloudScroll.add(newCloud);								
+						}
+
+						for(i in 0...7) {
+							var newCloud:FlxSprite = new FlxSprite();
+							newCloud.frames = Paths.getSparrowAtlas('ejected/scrollingClouds', 'impostor');
+							newCloud.animation.addByPrefix('idle', 'Cloud' + i, 24, false);
+							newCloud.animation.play('idle');
+							newCloud.updateHitbox();
+							newCloud.alpha = 0.5;
+							
+							switch(i) {
+								case 0:
+									newCloud.setPosition(-1308, -1039.9);
+								case 1:
+									newCloud.setPosition(464.3, -890.5);
+								case 2:
+									newCloud.setPosition(2458.45, -1085.85);
+								case 3:
+									newCloud.setPosition(-666.95, -172.05);
+								case 4:
+									newCloud.setPosition(-1616.6, 1016.95);
+								case 5:
+									newCloud.setPosition(1714.25, 200.45);
+								case 6:
+									newCloud.setPosition(-167.05, 710.25);
+							}
+							farClouds.add(newCloud);								
+						}
+
+						speedLines = new FlxBackdrop(Paths.image('ejected/speedLines', 'impostor'), 1, 1, true, true);
+						speedLines.antialiasing = true;
+						speedLines.updateHitbox();
+						speedLines.scrollFactor.set(1.3, 1.3);
+						speedLines.alpha = 0.3;
+											
+					}
+					case 'defeat':
+					{
+						defaultCamZoom = 0.9;
+						curStage = 'defeat';
+						var defeat:FlxSprite = new FlxSprite(0, 100).loadGraphic(Paths.image('defeatfnf', 'shared'));		
+						defeat.setGraphicSize(Std.int(defeat.width * 2));
+						defeat.scrollFactor.set(1,1);
+						defeat.antialiasing = true;
+						add(defeat);
 				}
 			default:
 			{
